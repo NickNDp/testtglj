@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LuckyJet 🛫</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Анимированный фон с облаками -->
+    <div class="clouds-bg"></div>
+
+    <!-- Стартовый экран -->
+    <div id="startScreen" class="screen active">
+        <div class="logo">
+            <svg width="80" height="80" viewBox="0 0 100 100" class="logo-plane">
+                <path d="M50 10 L90 40 L60 45 L70 80 L50 70 L30 80 L40 45 L10 40 Z" fill="#00ffcc" stroke="#ff9f00" stroke-width="2"/>
+            </svg>
+            <h1 class="logo-text">LuckyJet</h1>
+        </div>
+        <p class="subtitle">✨ Испытай удачу в небе!</p>
+        <button class="neon-btn start-btn" onclick="startGame()">НАЧАТЬ</button>
+    </div>
+
+    <!-- Игровой экран -->
+    <div id="gameScreen" class="screen">
+        <div class="header">
+            <h2>LuckyJet 🛫</h2>
+        </div>
+
+        <div class="game-area">
+            <!-- SVG Анимация самолётика -->
+            <svg id="planeAnimation" class="plane-svg" width="100%" height="200" viewBox="0 0 300 200">
+                <defs>
+                    <path id="flightPath" d="M 20 180 Q 100 50, 280 20" fill="none"/>
+                </defs>
+                <g id="plane" opacity="0">
+                    <path d="M0 0 L20 5 L10 7 L12 15 L8 13 L4 15 L6 7 L-4 5 Z" fill="#00ffcc" stroke="#ff9f00" stroke-width="1"/>
+                    <animateMotion dur="1.5s" repeatCount="1" rotate="auto">
+                        <mpath href="#flightPath"/>
+                    </animateMotion>
+                </g>
+            </svg>
+
+            <!-- Результат -->
+            <div id="result" class="result-box">
+                <div id="coefficient" class="coefficient">0.00x</div>
+                <div id="message" class="message">Нажми "Получить"</div>
+            </div>
+        </div>
+
+        <!-- Кнопка действия -->
+        <button id="actionBtn" class="neon-btn action-btn" onclick="playRound()">ПОЛУЧИТЬ</button>
+
+        <!-- Статистика -->
+        <div class="stats">
+            <div class="stat-item">
+                <span>Раунды:</span>
+                <span id="rounds">0</span>
+            </div>
+            <div class="stat-item">
+                <span>Лучший:</span>
+                <span id="bestCoef">0.00x</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
