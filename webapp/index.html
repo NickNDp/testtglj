@@ -31,54 +31,55 @@
 
         <div class="game-area">
             <!-- SVG Анимация самолётика в стиле Чип и Дейл -->
-            <svg id="planeAnimation" class="plane-svg" width="100%" height="250" viewBox="0 0 300 250">
+            <svg id="planeAnimation" class="plane-svg" width="100%" height="280" viewBox="0 0 350 280">
                 <defs>
-                    <!-- Зигзагообразный путь полёта -->
-                    <path id="flightPath" d="M 20 220 Q 60 180, 80 160 T 140 100 T 200 60 T 280 30" fill="none"/>
+                    <!-- Зигзагообразный путь полёта - будет генерироваться динамически -->
+                    <path id="flightPath" d="M 20 240 Q 80 200, 100 180 Q 140 140, 160 120 Q 200 80, 240 60 Q 280 40, 320 30" fill="none"/>
                 </defs>
-                <g id="plane" opacity="0" transform="scale(2)">
-                    <!-- Тело самолётика -->
-                    <ellipse cx="10" cy="0" rx="12" ry="8" fill="#FF6347" stroke="#8B4513" stroke-width="2"/>
-                    <!-- Нос самолётика -->
-                    <path d="M 22 0 L 30 0 L 28 3 L 28 -3 Z" fill="#FFD700" stroke="#8B4513" stroke-width="2"/>
+                <g id="plane" opacity="0">
+                    <!-- Основной корпус самолётика -->
+                    <ellipse cx="0" cy="0" rx="30" ry="18" fill="#FF6347" stroke="#8B4513" stroke-width="3"/>
+
+                    <!-- Нос (острый конус спереди) -->
+                    <path d="M 30 0 L 50 0 L 48 6 L 48 -6 Z" fill="#FFD700" stroke="#8B4513" stroke-width="3"/>
+
+                    <!-- Кабина пилота (окошко) -->
+                    <ellipse cx="15" cy="-3" rx="10" ry="8" fill="#87CEEB" stroke="#8B4513" stroke-width="2.5"/>
+                    <ellipse cx="15" cy="-3" rx="8" ry="6" fill="#ADD8E6"/>
+                    <circle cx="17" cy="-5" r="3" fill="#FFFFFF" opacity="0.8"/>
+
                     <!-- Верхнее крыло -->
-                    <ellipse cx="8" cy="-8" rx="16" ry="5" fill="#FFA500" stroke="#8B4513" stroke-width="2"/>
+                    <ellipse cx="0" cy="-18" rx="35" ry="10" fill="#FFA500" stroke="#8B4513" stroke-width="3"/>
+                    <ellipse cx="0" cy="-18" rx="30" ry="7" fill="#FFB52E"/>
+
                     <!-- Нижнее крыло -->
-                    <ellipse cx="8" cy="8" rx="16" ry="5" fill="#FFA500" stroke="#8B4513" stroke-width="2"/>
-                    <!-- Хвост -->
-                    <path d="M -2 0 L -8 -6 L -6 0 L -8 6 Z" fill="#FF8C00" stroke="#8B4513" stroke-width="2"/>
-                    <!-- Окошко -->
-                    <circle cx="12" cy="0" r="3" fill="#87CEEB" stroke="#8B4513" stroke-width="1.5"/>
-                    <circle cx="12" cy="0" r="1.5" fill="#FFFFFF" opacity="0.6"/>
-                    <!-- Пропеллер -->
-                    <g id="propeller" transform="translate(28, 0)">
-                        <ellipse cx="0" cy="0" rx="2" ry="8" fill="#D2691E" opacity="0.7"/>
-                        <circle cx="0" cy="0" r="2" fill="#8B4513"/>
+                    <ellipse cx="0" cy="18" rx="35" ry="10" fill="#FFA500" stroke="#8B4513" stroke-width="3"/>
+                    <ellipse cx="0" cy="18" rx="30" ry="7" fill="#FFB52E"/>
+
+                    <!-- Хвост вертикальный -->
+                    <path d="M -30 0 L -45 -18 L -38 0 Z" fill="#FF8C00" stroke="#8B4513" stroke-width="3"/>
+
+                    <!-- Хвост горизонтальный -->
+                    <ellipse cx="-40" cy="0" rx="8" ry="12" fill="#FF8C00" stroke="#8B4513" stroke-width="3"/>
+
+                    <!-- Пропеллер (будет вращаться) -->
+                    <g id="propeller">
+                        <ellipse cx="50" cy="0" rx="3" ry="25" fill="#8B4513" opacity="0.7">
+                            <animateTransform
+                                attributeName="transform"
+                                type="rotate"
+                                from="0 50 0"
+                                to="360 50 0"
+                                dur="0.08s"
+                                repeatCount="indefinite"/>
+                        </ellipse>
+                        <circle cx="50" cy="0" r="4" fill="#D2691E" stroke="#8B4513" stroke-width="2"/>
                     </g>
+
                     <!-- Полёт по зигзагообразному пути -->
-                    <animateMotion dur="2s" repeatCount="1" rotate="auto">
+                    <animateMotion id="planeMotion" dur="2s" repeatCount="1" rotate="auto">
                         <mpath href="#flightPath"/>
                     </animateMotion>
-                    <!-- Вращение самолётика в процессе полёта -->
-                    <animateTransform
-                        attributeName="transform"
-                        attributeType="XML"
-                        type="rotate"
-                        from="0 10 0"
-                        to="720 10 0"
-                        dur="2s"
-                        repeatCount="1"
-                        additive="sum"/>
-                    <!-- Анимация пропеллера -->
-                    <animateTransform
-                        attributeName="transform"
-                        attributeType="XML"
-                        type="rotate"
-                        from="0 28 0"
-                        to="720 28 0"
-                        dur="0.2s"
-                        repeatCount="10"
-                        additive="sum"/>
                 </g>
             </svg>
 

@@ -89,9 +89,54 @@ function shouldSkipTurn() {
     return false;
 }
 
+// Генерация случайного зигзагообразного пути
+function generateRandomPath() {
+    const startX = 20;
+    const startY = 240;
+    const endX = 320;
+    const endY = 30;
+
+    // Генерируем 3-4 случайные точки для зигзагов
+    const points = [];
+    const numPoints = 3 + Math.floor(Math.random() * 2); // 3 или 4 точки
+
+    for (let i = 1; i <= numPoints; i++) {
+        const x = startX + (endX - startX) * (i / (numPoints + 1));
+        const y = startY - (startY - endY) * (i / (numPoints + 1)) + (Math.random() * 60 - 30); // ±30 пикселей случайного отклонения
+        points.push({ x, y });
+    }
+
+    // Создаём SVG путь с квадратичными кривыми Безье
+    let path = `M ${startX} ${startY}`;
+
+    for (let i = 0; i < points.length; i++) {
+        if (i === 0) {
+            path += ` Q ${points[i].x} ${points[i].y}`;
+        } else {
+            path += `, ${points[i].x} ${points[i].y}`;
+        }
+
+        // Добавляем следующую точку как конечную для текущей кривой
+        if (i < points.length - 1) {
+            const midX = (points[i].x + points[i + 1].x) / 2;
+            const midY = (points[i].y + points[i + 1].y) / 2;
+            path += ` ${midX} ${midY} Q`;
+        }
+    }
+
+    path += ` ${endX} ${endY}`;
+
+    return path;
+}
+
 // Анимация самолётика
 function animatePlane() {
     return new Promise((resolve) => {
+        // Генерируем новый случайный путь
+        const newPath = generateRandomPath();
+        const pathElement = document.getElementById('flightPath');
+        pathElement.setAttribute('d', newPath);
+
         // Показываем самолётик
         planeEl.setAttribute('opacity', '1');
 
