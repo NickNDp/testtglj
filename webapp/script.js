@@ -35,32 +35,32 @@ function startGame() {
 function generateCoefficient() {
     const random = Math.random() * 100;
 
-    if (random < 50) {
-        // 50% - Обычные (1.10-1.80)
+    if (random < 70) {
+        // 70% - Обычные (1.1-1.6)
         return {
-            value: (Math.random() * 0.7 + 1.1).toFixed(2),
-            message: "Не рискуй!",
+            value: (Math.random() * 0.5 + 1.1).toFixed(2),
+            message: "Неплохо! 😊",
             type: "normal"
         };
-    } else if (random < 85) {
-        // 35% - Рискованные (2.5-5.0)
+    } else if (random < 88) {
+        // 18% - Хорошие (1.6-2.2)
         return {
-            value: (Math.random() * 2.5 + 2.5).toFixed(2),
-            message: "Очень хороший коэффициент!",
+            value: (Math.random() * 0.6 + 1.6).toFixed(2),
+            message: "Отличный результат! 🎉",
             type: "good"
         };
-    } else if (random < 97) {
-        // 12% - Редкие (5-10)
+    } else if (random < 95) {
+        // 7% - Редкие (2.2-3.0)
         return {
-            value: (Math.random() * 5 + 5).toFixed(2),
-            message: "Редкий шанс!",
+            value: (Math.random() * 0.8 + 2.2).toFixed(2),
+            message: "Редкая удача! 🌟",
             type: "rare"
         };
     } else {
-        // 3% - Супер редкие (10-20)
+        // 5% - Супер редкие (3.0-5.2)
         return {
-            value: (Math.random() * 10 + 10).toFixed(2),
-            message: "Ты везунчик!",
+            value: (Math.random() * 2.2 + 3.0).toFixed(2),
+            message: "ДЖЕКПОТ! ТЫ ВЕЗУНЧИК! 🎰💎",
             type: "super-rare"
         };
     }

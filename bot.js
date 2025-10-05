@@ -61,7 +61,7 @@ bot.onText(/\/play/, (msg) => {
       inline_keyboard: [[
         {
           text: '🚀 ИГРАТЬ',
-          web_app: { url: 'https://ваш-домен.com/webapp/index.html' } // Замените на ваш URL после деплоя
+          web_app: { url: 'https://nickndp.github.io/testtglj/webapp/index.html' } // Замените на ваш URL после деплоя
         }
       ]]
     }
