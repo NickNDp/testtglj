@@ -133,9 +133,16 @@ body {
 }
 
 .neon-btn:disabled {
-    opacity: 0.5;
+    background: linear-gradient(180deg, #CCCCCC 0%, #999999 100%);
+    border: 4px solid #666666;
+    color: #444444;
     cursor: not-allowed;
     transform: scale(1);
+    box-shadow:
+        0 4px 0px #555555,
+        0 6px 10px rgba(0, 0, 0, 0.2),
+        inset 0 2px 5px rgba(255, 255, 255, 0.3);
+    top: 0;
 }
 
 /* Игровой экран */
@@ -221,6 +228,44 @@ body {
 
 .message.skip {
     color: #FF4500;
+}
+
+/* Таймер обратного отсчёта */
+.timer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #FF6347 0%, #FF4500 100%);
+    border: 5px solid #FFD700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow:
+        0 6px 0px #D2691E,
+        0 10px 20px rgba(255, 99, 71, 0.5),
+        inset 0 3px 8px rgba(255, 255, 255, 0.4);
+    animation: timerPulse 1s ease infinite;
+}
+
+.timer-circle span {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-shadow:
+        2px 2px 0px #8B0000,
+        1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes timerPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
 /* Кнопка действия */

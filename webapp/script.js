@@ -8,6 +8,7 @@ let rounds = 0;
 let bestCoefficient = 0;
 let clickCounter = 0;
 let skipNextTurn = false;
+let countdownInterval = null;
 
 // Элементы DOM
 const startScreen = document.getElementById('startScreen');
@@ -19,6 +20,8 @@ const bestCoefEl = document.getElementById('bestCoef');
 const actionBtn = document.getElementById('actionBtn');
 const resultBox = document.getElementById('result');
 const planeEl = document.getElementById('plane');
+const timerEl = document.getElementById('timer');
+const timerValueEl = document.getElementById('timerValue');
 
 // Запуск игры
 function startGame() {
@@ -96,11 +99,43 @@ function animatePlane() {
         const animateMotion = planeEl.querySelector('animateMotion');
         animateMotion.beginElement();
 
-        // Скрываем после анимации
+        // Скрываем после анимации (увеличено до 2 секунд)
         setTimeout(() => {
             planeEl.setAttribute('opacity', '0');
             resolve();
-        }, 1500);
+        }, 2000);
+    });
+}
+
+// Таймер обратного отсчёта
+function startCountdown(seconds) {
+    return new Promise((resolve) => {
+        let timeLeft = seconds;
+
+        // Показываем таймер
+        timerEl.style.display = 'flex';
+        timerValueEl.textContent = timeLeft;
+
+        // Блокируем кнопку
+        actionBtn.disabled = true;
+
+        // Запускаем отсчёт
+        countdownInterval = setInterval(() => {
+            timeLeft--;
+            timerValueEl.textContent = timeLeft;
+
+            // Вибрация каждую секунду
+            if (tg.HapticFeedback && timeLeft > 0) {
+                tg.HapticFeedback.impactOccurred('light');
+            }
+
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval);
+                timerEl.style.display = 'none';
+                actionBtn.disabled = false;
+                resolve();
+            }
+        }, 1000);
     });
 }
 
@@ -155,7 +190,11 @@ async function playRound() {
             tg.HapticFeedback.notificationOccurred('warning');
         }
 
-        actionBtn.disabled = false;
+        // Запускаем 10-секундный таймер
+        await startCountdown(10);
+
+        // После окончания таймера сбрасываем сообщение
+        updateResult('0.00x', 'Нажми "Получить"', 'normal');
         return;
     }
 

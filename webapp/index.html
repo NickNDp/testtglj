@@ -31,11 +31,12 @@
 
         <div class="game-area">
             <!-- SVG Анимация самолётика в стиле Чип и Дейл -->
-            <svg id="planeAnimation" class="plane-svg" width="100%" height="200" viewBox="0 0 300 200">
+            <svg id="planeAnimation" class="plane-svg" width="100%" height="250" viewBox="0 0 300 250">
                 <defs>
-                    <path id="flightPath" d="M 20 180 Q 100 50, 280 20" fill="none"/>
+                    <!-- Зигзагообразный путь полёта -->
+                    <path id="flightPath" d="M 20 220 Q 60 180, 80 160 T 140 100 T 200 60 T 280 30" fill="none"/>
                 </defs>
-                <g id="plane" opacity="0">
+                <g id="plane" opacity="0" transform="scale(2)">
                     <!-- Тело самолётика -->
                     <ellipse cx="10" cy="0" rx="12" ry="8" fill="#FF6347" stroke="#8B4513" stroke-width="2"/>
                     <!-- Нос самолётика -->
@@ -54,18 +55,30 @@
                         <ellipse cx="0" cy="0" rx="2" ry="8" fill="#D2691E" opacity="0.7"/>
                         <circle cx="0" cy="0" r="2" fill="#8B4513"/>
                     </g>
-                    <animateMotion dur="1.5s" repeatCount="1" rotate="auto">
+                    <!-- Полёт по зигзагообразному пути -->
+                    <animateMotion dur="2s" repeatCount="1" rotate="auto">
                         <mpath href="#flightPath"/>
                     </animateMotion>
+                    <!-- Вращение самолётика в процессе полёта -->
+                    <animateTransform
+                        attributeName="transform"
+                        attributeType="XML"
+                        type="rotate"
+                        from="0 10 0"
+                        to="720 10 0"
+                        dur="2s"
+                        repeatCount="1"
+                        additive="sum"/>
                     <!-- Анимация пропеллера -->
                     <animateTransform
                         attributeName="transform"
                         attributeType="XML"
                         type="rotate"
                         from="0 28 0"
-                        to="360 28 0"
-                        dur="0.1s"
-                        repeatCount="15"/>
+                        to="720 28 0"
+                        dur="0.2s"
+                        repeatCount="10"
+                        additive="sum"/>
                 </g>
             </svg>
 
@@ -73,6 +86,11 @@
             <div id="result" class="result-box">
                 <div id="coefficient" class="coefficient">0.00x</div>
                 <div id="message" class="message">Нажми "Получить"</div>
+                <div id="timer" class="timer" style="display: none;">
+                    <div class="timer-circle">
+                        <span id="timerValue">10</span>
+                    </div>
+                </div>
             </div>
         </div>
 
